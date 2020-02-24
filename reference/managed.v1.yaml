@@ -9,8 +9,6 @@ info:
 servers:
   - url: 'https://heylinkapi.com/boss/v1'
     description: production
-  - url: 'https://heylinkstaging.com/boss/v1'
-    description: staging
 paths:
   /currencies/rates:
     get:
