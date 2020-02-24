@@ -1,0 +1,2707 @@
+openapi: 3.0.0
+info:
+  title: boss
+  version: v1
+  contact:
+    name: Martin Hansen
+    url: heylink.com
+    email: mh@heylink.com
+servers:
+  - url: 'https://heylinkapi.com/boss/v1'
+    description: production
+  - url: 'https://heylinkstaging.com/boss/v1'
+    description: staging
+paths:
+  /currencies/rates:
+    get:
+      summary: GET currency rate
+      tags:
+        - currencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/currencyRate'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      currencyRateId: DKKEUR
+                      currencyRateFrom: DKK
+                      currencyRateValue: 0.133877
+                      currencyRateTo: EUR
+                    message: success
+      operationId: get-currencies-rates
+      security:
+        - JWT: []
+      description: ''
+  '/currencies/rates/{currencyRateId}':
+    parameters:
+      - schema:
+          type: string
+        name: currencyRateId
+        in: path
+        required: true
+    get:
+      summary: GET currency rate
+      tags:
+        - currencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: ''
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      currencyRateId: DKKEUR
+                      currencyRateFrom: DKK
+                      currencyRateValue: 0.133877
+                      currencyRateTo: EUR
+                    message: success
+      operationId: get-currencies-rate
+      security:
+        - JWT: []
+      description: ''
+  '/currencies/rates/from/{currencyCode}':
+    parameters:
+      - schema:
+          type: string
+        name: currencyCode
+        in: path
+        required: true
+    get:
+      summary: 'GET currency rates [from]'
+      tags:
+        - currencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/currencyRate'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - currencyRateId: DKKEUR
+                        currencyRateFrom: DKK
+                        currencyRateValue: 0.133877
+                        currencyRateTo: EUR
+                    message: success
+      operationId: get-currencies-rates-from-currencyCode
+      security:
+        - JWT: []
+      description: ''
+  '/currencies/rates/to/{currencyCode}':
+    parameters:
+      - schema:
+          type: string
+        name: currencyCode
+        in: path
+        required: true
+    get:
+      summary: 'GET currency rates [to]'
+      tags:
+        - currencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/currencyRate'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - currencyRateId: DKKEUR
+                        currencyRateFrom: DKK
+                        currencyRateValue: 0.133877
+                        currencyRateTo: EUR
+                    message: success
+      operationId: get-currencies-rates-to-currencyCode
+      security:
+        - JWT: []
+      description: ''
+  '/currencies/rates/to/{currencyCode}/active':
+    parameters:
+      - schema:
+          type: string
+        name: currencyCode
+        in: path
+        required: true
+    get:
+      summary: 'GET active currency rates [to]'
+      tags:
+        - currencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/currencyRate'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - currencyRateId: DKKEUR
+                        currencyRateFrom: DKK
+                        currencyRateValue: 0.133877
+                        currencyRateTo: EUR
+                    message: success
+      operationId: get-currencies-rates-to-currencyCode-active
+      security:
+        - JWT: []
+      description: ''
+  '/currencies/rates/from/{currencyCode}/active':
+    parameters:
+      - schema:
+          type: string
+        name: currencyCode
+        in: path
+        required: true
+    get:
+      summary: 'GET active currency rates [from]'
+      tags:
+        - currencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/currencyRate'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - currencyRateId: DKKEUR
+                        currencyRateFrom: DKK
+                        currencyRateValue: 0.133877
+                        currencyRateTo: EUR
+                    message: success
+      operationId: get-currencies-rates-from-currencyCode-active
+      security:
+        - JWT: []
+      description: ''
+  '/currencies/{currencyCode}':
+    parameters:
+      - schema:
+          type: string
+        name: currencyCode
+        in: path
+        required: true
+    get:
+      summary: GET currency
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: '#/components/schemas/currency'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      currencyCode: DKK
+                      currencyLeft: ''
+                      currencyRight: ' Kr.'
+                      currencyDecimalPlace: 2
+                      currencyDecimalSeparator: ','
+                      currencyThousandSeparator: .
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-currencies-currencyCode
+      security:
+        - JWT: []
+      tags:
+        - currencies
+    put:
+      summary: UPDATE currrency
+      operationId: put-currencies-currencyCode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currencyDecimalPlace:
+                    type: integer
+                  currencyDecimalSeparator:
+                    type: string
+                  currencyThousandSeparator:
+                    type: string
+                  currencyLeft:
+                    type: string
+                  currencyRight:
+                    type: string
+              examples:
+                example:
+                  value:
+                    currencyLeft: ''
+                    currencyRight: ' Kr.'
+                    currencyDecimalPlace: 2
+                    currencyDecimalSeparator: ','
+                    currencyThousandSeparator: .
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      tags:
+        - currencies
+      security:
+        - JWT: []
+  /currencies:
+    get:
+      summary: GET currencies
+      tags:
+        - currencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/currency'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - currencyCode: DKK
+                        currencyLeft: ''
+                        currencyRight: ' Kr.'
+                        currencyDecimalPlace: 2
+                        currencyDecimalSeparator: ','
+                        currencyThousandSeparator: .
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-currencies
+      security:
+        - JWT: []
+    post:
+      summary: CREATE currency
+      operationId: post-currencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data: DKK
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currencyCode:
+                  type: string
+                currencyLeft:
+                  type: string
+                currencyRight:
+                  type: string
+                currencyDecimalPlace:
+                  type: integer
+                currencyDecimalSeparator:
+                  type: string
+                currencyThousdandSeparator:
+                  type: string
+            examples:
+              example:
+                value:
+                  currencyCode: DKK
+                  currencyLeft: ''
+                  currencyRight: ' Kr.'
+                  currencyDecimalPlace: 2
+                  currencyDecimalSeparator: ','
+                  currencyThousandSeparator: .
+      tags:
+        - currencies
+      security:
+        - JWT: []
+  /reports/insights:
+    get:
+      summary: GET insights
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: '#/components/schemas/insights'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      totals:
+                        pageviews: 9422
+                        clicks: 0
+                        conversions: 18
+                        commission:
+                          DKK: 3258
+                          NOK: 310
+                          SEK: 535
+                          GBP: 225
+                          USD: 70
+                        sale:
+                          DKK: 1100
+                          NOK: 0
+                          SEK: 0
+                          GBP: 290
+                          USD: 0
+                        cut:
+                          DKK: 0
+                          NOK: 0
+                          SEK: 0
+                          GBP: 0
+                          USD: 0
+                      groups:
+                        - grp: Desktop
+                          filter: Desktop
+                          filterYear: ''
+                          pageviews: 3866
+                          sale:
+                            DKK: 1100
+                            NOK: 0
+                            SEK: 0
+                            GBP: 290
+                            USD: 0
+                          clicks: 0
+                          conversions: 18
+                          commission:
+                            DKK: 3258
+                            NOK: 310
+                            SEK: 535
+                            GBP: 225
+                            USD: 70
+                          cut:
+                            DKK: 0
+                            NOK: 0
+                            SEK: 0
+                            GBP: 0
+                            USD: 0
+                        - grp: Tablet
+                          filter: Tablet
+                          filterYear: ''
+                          pageviews: 1220
+                          sale: {}
+                          clicks: 0
+                          conversions: 0
+                          commission: {}
+                          cut: {}
+                        - grp: Mobile
+                          filter: Mobile
+                          filterYear: ''
+                          pageviews: 4336
+                          sale: {}
+                          clicks: 0
+                          conversions: 0
+                          commission: {}
+                          cut: {}
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-reports-insights
+      security:
+        - JWT: []
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - hour
+              - date
+              - week
+              - month
+              - year
+              - site
+              - page
+              - device
+              - link
+              - referrer
+              - traffic
+              - merchant
+              - conversion
+              - account
+              - network
+          in: query
+          name: group
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: startDate
+          required: true
+          description: YYYY-MM-DD
+        - schema:
+            type: string
+          in: query
+          name: endDate
+          required: true
+          description: YYYY-MM-DD
+        - schema:
+            type: string
+          in: query
+          name: hour
+        - schema:
+            type: string
+          in: query
+          name: date
+        - schema:
+            type: string
+          in: query
+          name: week
+        - schema:
+            type: string
+          in: query
+          name: month
+        - schema:
+            type: string
+          in: query
+          name: year
+        - schema:
+            type: string
+          in: query
+          name: site
+        - schema:
+            type: string
+          in: query
+          name: page
+        - schema:
+            type: string
+          in: query
+          name: device
+        - schema:
+            type: string
+          in: query
+          name: link
+        - schema:
+            type: string
+          in: query
+          name: referrer
+        - schema:
+            type: string
+          in: query
+          name: traffic
+        - schema:
+            type: string
+          in: query
+          name: account
+        - schema:
+            type: string
+          in: query
+          name: merchant
+        - schema:
+            type: string
+          in: query
+          name: network
+  /clicks:
+    get:
+      summary: GET clicks
+      tags:
+        - clicks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/conversion'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - clickDatetime: '2019-05-05 23:32:10'
+                        clickUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                        clickMediaUuid: ''
+                        clickNetworkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+                        clickFacebookAdId: ''
+                        clickMerchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+                        clickAccountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                        clickProgramUuid: ''
+                        clickCommissionRuleUuid: ''
+                        clickTrackerUuid: ''
+                        clickUrlPath: xn--bredbnd-ixa.dk/guides/nem-guide-sadan-far-du-amerikansk-netflix
+                        clickSubId: ''
+                        clickGclid: ''
+                        clickMsclkid: ''
+                        clickNetworkUrl: 'https://www.cyberghostvpn.com/offer/comp_gen_weus84rjq.html?aff_sub='
+                        clickReferer: google.com
+                        clickTarget: cyberghostvpn.com
+                        clickDevice: Desktop
+                        conversions:
+                          - conversionUuid: 2d6cf39c-62df-4393-9633-34265d1a710b
+                            conversionMediaUuid: ''
+                            conversionClickUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                            conversionNetworkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+                            conversionAccountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                            conversionProgramUuid: '0'
+                            conversionTrackerUuid: '0'
+                            conversionMerchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+                            conversionAmount: 65
+                            conversionCommission: 65
+                            conversionCut: 0
+                            conversionCurrencyId: 6
+                            conversionSale: 0
+                            conversionSaleOrderId: ''
+                            conversionDatetime: '2019-05-05 23:45:06'
+                            conversionCallbackUuid: '0'
+                            conversionStatusKey: ''
+                            conversonUpdatedDatetime: '2020-02-10T14:22:23.000Z'
+                            conversionPaymentReceived: 0
+                            conversionPaymentReceivedDatetime: '0000-00-00 00:00:00'
+                            currency:
+                              currencyId: 6
+                              currencyCode: USD
+                        merchant:
+                          merchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+                          merchantUrl: cyberghostvpn.com
+                          merchantFavicon: 'https://www.cyberghostvpn.com/favicon-192x192.png?v=1'
+                        account:
+                          accountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                          accountName: Compriso ApS
+                        network:
+                          networkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+                          networkName: CyberGhost (kape.com)
+                        media:
+                          mediaUuid: ''
+                          mediaUrl: smslaane.dk
+                          mediaFavicon: ''
+                        program: null
+                        tracker: null
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-clicks
+      security:
+        - JWT: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: startDate
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: endDate
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: limit
+  '/clicks/{clickUuid':
+    get:
+      summary: GET click
+      tags:
+        - clicks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: '#/components/schemas/click'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      clickDatetime: '2019-05-05 23:32:10'
+                      clickUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                      clickMediaUuid: ''
+                      clickNetworkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+                      clickFacebookAdId: ''
+                      clickMerchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+                      clickAccountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                      clickProgramUuid: ''
+                      clickCommissionRuleUuid: ''
+                      clickTrackerUuid: ''
+                      clickUrlPath: xn--bredbnd-ixa.dk/guides/nem-guide-sadan-far-du-amerikansk-netflix
+                      clickSubId: ''
+                      clickGclid: ''
+                      clickMsclkid: ''
+                      clickNetworkUrl: 'https://www.cyberghostvpn.com/offer/comp_gen_weus84rjq.html?aff_sub='
+                      clickReferer: google.com
+                      clickTarget: cyberghostvpn.com
+                      clickDevice: Desktop
+                      conversions:
+                        - conversionUuid: 2d6cf39c-62df-4393-9633-34265d1a710b
+                          conversionMediaUuid: ''
+                          conversionClickUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                          conversionNetworkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+                          conversionAccountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                          conversionProgramUuid: '0'
+                          conversionTrackerUuid: '0'
+                          conversionMerchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+                          conversionAmount: 65
+                          conversionCommission: 65
+                          conversionCut: 0
+                          conversionCurrencyId: 6
+                          conversionSale: 0
+                          conversionSaleOrderId: ''
+                          conversionDatetime: '2019-05-05 23:45:06'
+                          conversionCallbackUuid: '0'
+                          conversionStatusKey: ''
+                          conversonUpdatedDatetime: '2020-02-10T14:22:23.000Z'
+                          conversionPaymentReceived: 0
+                          conversionPaymentReceivedDatetime: '0000-00-00 00:00:00'
+                          currency:
+                            currencyId: 6
+                            currencyCode: USD
+                      merchant:
+                        merchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+                        merchantUrl: cyberghostvpn.com
+                        merchantFavicon: 'https://www.cyberghostvpn.com/favicon-192x192.png?v=1'
+                      account:
+                        accountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                        accountName: Compriso ApS
+                      network:
+                        networkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+                        networkName: CyberGhost (kape.com)
+                      media:
+                        mediaUuid: ''
+                        mediaUrl: smslaane.dk
+                        mediaFavicon: ''
+                      program: null
+                      tracker: null
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-clicks-clickUuid
+      description: ''
+      security:
+        - JWT: []
+  '/conversions/status/{conversionStatusKey}':
+    parameters:
+      - schema:
+          type: string
+        name: conversionStatusKey
+        in: path
+        required: true
+    get:
+      summary: GET conversion status
+      tags:
+        - conversions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: '#/components/schemas/conversion-status'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      conversionStatusKey: approved
+                      conversionStatusName: Approved
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-conversions-status-conversionStatusKey
+      security:
+        - JWT: []
+      description: ''
+  /conversions/status:
+    get:
+      summary: GET conversion statuses
+      tags:
+        - conversions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/conversion-status'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - conversionStatusKey: approved
+                        conversionStatusName: Approved
+                      - conversionStatusKey: pending
+                        conversionStatusName: Pending
+                      - conversionStatusKey: rejected
+                        conversionStatusName: Rejected
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-conversions-status
+      security:
+        - JWT: []
+  '/conversions/{conversionUuid}':
+    parameters:
+      - schema:
+          type: string
+        name: conversionUuid
+        in: path
+        required: true
+    get:
+      summary: GET conversion
+      tags:
+        - conversions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: '#/components/schemas/conversion'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      conversionUuid: 2d6cf39c-62df-4393-9633-34265d1a710b
+                      conversionMediaUuid: ''
+                      conversionClickUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                      conversionNetworkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+                      conversionAccountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                      conversionProgramUuid: '0'
+                      conversionTrackerUuid: '0'
+                      conversionMerchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+                      conversionAmount: 65
+                      conversionCommission: 65
+                      conversionCut: 0
+                      conversionCurrencyId: 6
+                      conversionSale: 0
+                      conversionSaleOrderId: ''
+                      conversionDatetime: '2019-05-05 23:45:06'
+                      conversionCallbackUuid: '0'
+                      conversionStatusKey: approved
+                      conversonUpdatedDatetime: '2020-02-10T14:22:23.000Z'
+                      conversionPaymentReceived: 0
+                      conversionPaymentReceivedDatetime: '0000-00-00 00:00:00'
+                      comments: []
+                      account:
+                        accountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                        accountName: Compriso ApS
+                      currency:
+                        currencyId: 6
+                        currencyCode: USD
+                      network:
+                        networkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+                        networkName: CyberGhost (kape.com)
+                      merchant:
+                        merchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+                        merchantUrl: cyberghostvpn.com
+                        merchantFavicon: 'https://www.cyberghostvpn.com/favicon-192x192.png?v=1'
+                      media:
+                        mediaUuid: ''
+                        mediaUrl: smslaane.dk
+                        mediaFavicon: ''
+                      program:
+                        programUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                        programTitle: Program title
+                      tracker:
+                        trackerUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                        trackerName: Tracker name
+                      click:
+                        clickDatetime: '2019-05-05 23:32:10'
+                        clickUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                        clickFacebookAdId: ''
+                        clickGclid: ''
+                        clickMsclkid: ''
+                        clickUrlPath: xn--bredbnd-ixa.dk/guides/nem-guide-sadan-far-du-amerikansk-netflix
+                        clickDevice: Desktop
+                      status:
+                        conversionstatusKey: approved
+                        conversionStatusName: Approved
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-conversions-conversionUuid
+      description: ''
+      security:
+        - JWT: []
+  /conversions:
+    get:
+      summary: GET conversions
+      tags:
+        - conversions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/conversion'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - conversionUuid: 2d6cf39c-62df-4393-9633-34265d1a710b
+                        conversionMediaUuid: ''
+                        conversionClickUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                        conversionNetworkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+                        conversionAccountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                        conversionProgramUuid: '0'
+                        conversionTrackerUuid: '0'
+                        conversionMerchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+                        conversionAmount: 65
+                        conversionCommission: 65
+                        conversionCut: 0
+                        conversionCurrencyId: 6
+                        conversionSale: 0
+                        conversionSaleOrderId: ''
+                        conversionDatetime: '2019-05-05 23:45:06'
+                        conversionCallbackUuid: '0'
+                        conversionStatusKey: approved
+                        conversonUpdatedDatetime: '2020-02-10T14:22:23.000Z'
+                        conversionPaymentReceived: 0
+                        conversionPaymentReceivedDatetime: '0000-00-00 00:00:00'
+                        comments: []
+                        account:
+                          accountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                          accountName: Compriso ApS
+                        currency:
+                          currencyId: 6
+                          currencyCode: USD
+                        network:
+                          networkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+                          networkName: CyberGhost (kape.com)
+                        merchant:
+                          merchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+                          merchantUrl: cyberghostvpn.com
+                          merchantFavicon: 'https://www.cyberghostvpn.com/favicon-192x192.png?v=1'
+                        media:
+                          mediaUuid: ''
+                          mediaUrl: smslaane.dk
+                          mediaFavicon: ''
+                        program:
+                          programUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                          programTitle: Program title
+                        tracker:
+                          trackerUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                          trackerName: Tracker name
+                        click:
+                          clickDatetime: '2019-05-05 23:32:10'
+                          clickUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+                          clickFacebookAdId: ''
+                          clickGclid: ''
+                          clickMsclkid: ''
+                          clickUrlPath: xn--bredbnd-ixa.dk/guides/nem-guide-sadan-far-du-amerikansk-netflix
+                          clickDevice: Desktop
+                        status:
+                          conversionstatusKey: approved
+                          conversionStatusName: Approved
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-conversions
+      security:
+        - JWT: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: startDate
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: endDate
+          required: true
+        - schema:
+            type: integer
+          in: query
+          name: limit
+  '/countries/{countryCode}':
+    parameters:
+      - schema:
+          type: string
+        name: countryCode
+        in: path
+        required: true
+    get:
+      summary: GET country
+      tags:
+        - countries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/country'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      countryName: Denmark
+                      countryStatus: 1
+                      countryCode: DK
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-countries-countryCode
+      security:
+        - JWT: []
+    put:
+      summary: UPDATE country
+      operationId: put-countries-countryCode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: 'null'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data: null
+                    message: success
+      description: ''
+      security:
+        - JWT: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                countryStatus:
+                  type: boolean
+            examples:
+              example:
+                value:
+                  countryStatus: true
+      tags:
+        - countries
+  /countries:
+    get:
+      summary: GET countries
+      tags:
+        - countries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/country'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - countryCode: DKK
+                        countryName: Denmark
+                        countryStatus: 1
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-countries
+      security:
+        - JWT: []
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: countryStatus
+    post:
+      summary: CREATE country
+      operationId: post-countries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data: DK
+                    message: success
+      tags:
+        - countries
+      security:
+        - JWT: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                countryName:
+                  type: string
+                countryCode:
+                  type: string
+                countryStatus:
+                  type: boolean
+            examples:
+              example:
+                value:
+                  countryName: Denmark
+                  countryStatus: 1
+                  countryCode: DK
+  '/medias/{mediaUuid}':
+    parameters:
+      - schema:
+          type: string
+        name: mediaUuid
+        in: path
+        required: true
+    get:
+      summary: GET media
+      tags:
+        - medias
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/media'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      mediaUuid: 3d4ba4e2-f735-4631-aebd-667dd1d8514d
+                      mediaUrl: localhost
+                      mediaName: localhost
+                      mediaFavicon: ''
+                      mediaTypeUuid: ''
+                      mediaAccountUuid: ''
+                      mediaCountryCode: DKK
+                      mediaExclude: 0
+                      mediaInclude: 0
+                      mediaDomUpdate: 0
+                      mediaDiscoverLink: 1
+                      mediaDiscoverMode: 0
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-medias-mediaUuid
+      security:
+        - JWT: []
+      requestBody: {}
+  /medias:
+    get:
+      summary: GET medias
+      tags:
+        - medias
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/media'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - mediaUuid: 3d4ba4e2-f735-4631-aebd-667dd1d8514d
+                        mediaUrl: localhost
+                        mediaName: localhost
+                        mediaFavicon: ''
+                        mediaTypeUuid: ''
+                        mediaAccountUuid: ''
+                        mediaCountryCode: DKK
+                        mediaExclude: 0
+                        mediaInclude: 0
+                        mediaDomUpdate: 0
+                        mediaDiscoverLink: 1
+                        mediaDiscoverMode: 0
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-medias
+      security:
+        - JWT: []
+      requestBody:
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+        - schema:
+            type: string
+          in: query
+          name: mediaAccountUuid
+  '/merchants/{merchantUuid}':
+    parameters:
+      - schema:
+          type: string
+        name: merchantUuid
+        in: path
+        required: true
+    get:
+      summary: GET merchant
+      tags:
+        - merchants
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    $ref: '#/components/schemas/merchant'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      merchantUuid: 69f75992-9518-4557-9778-bb533fbc0746
+                      merchantName: 365Direkte
+                      merchantUrl: 365direkte.no
+                      merchantFavicon: ''
+                      merchantForceHttps: 0
+                      merchantForceHttp: 0
+                      merchantForceWww: 0
+                      merchantForceRemoveWww: 0
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-merchants-merchantUuid
+      security:
+        - JWT: []
+  /merchants:
+    get:
+      summary: GET merchants
+      tags:
+        - merchants
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/merchant'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - merchantUuid: 69f75992-9518-4557-9778-bb533fbc0746
+                        merchantName: 365Direkte
+                        merchantUrl: 365direkte.no
+                        merchantFavicon: ''
+                        merchantForceHttps: 0
+                        merchantForceHttp: 0
+                        merchantForceWww: 0
+                        merchantForceRemoveWww: 0
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-merchants
+      security:
+        - JWT: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: merchantUuids
+        - schema:
+            type: string
+          in: query
+          name: search
+          description: 'searches url & name'
+  '/users/{userUuid}':
+    parameters:
+      - schema:
+          type: string
+        name: userUuid
+        in: path
+        required: true
+    get:
+      summary: GET user
+      tags:
+        - users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type:
+                      - string
+                      - integer
+                  data:
+                    $ref: '#/components/schemas/user'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      userUuid: 75fd4326-300b-4a8e-bff6-807c973a1c42
+                      userFirstname: Martin
+                      userLastname: Hansen
+                      userEmail: mh@heylink.com
+                      userCurrencyCode: DKK
+                      userStatus: 1
+                      userAccountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                      account:
+                        accountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                        accountName: Compriso ApS
+                        accountTypeUuid: 8b60e2db-456a-4f4d-9b40-8bf627f5a42b
+                        accountCustomerUuid: 1b1a1caa-dcf1-42da-9c6d-9e8ff302f5cf
+                        accountCommission: 75
+                        accountManaged: 1
+                        accountStatus: 1
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-users-userUuid
+    put:
+      summary: UPDATE user
+      operationId: put-users-userUuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: 'null'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data: null
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      security:
+        - JWT: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userFirstname:
+                  type: string
+                userLastname:
+                  type: string
+                userEmail:
+                  type: string
+                userStatus:
+                  type: boolean
+                userCurrencyCode:
+                  type: string
+              required:
+                - userFirstname
+                - userLastname
+                - userEmail
+                - userStatus
+            examples:
+              example:
+                value:
+                  userFirstname: John
+                  userLastname: Doe
+                  userEmail: email@domain.com
+                  userStatus: true
+                  userCurrencyCode: DKK
+        description: ''
+      tags:
+        - users
+  /users/me:
+    get:
+      summary: 'GET user [me]'
+      tags:
+        - users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/user'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data:
+                      - userUuid: 75fd4326-300b-4a8e-bff6-807c973a1c42
+                        userFirstname: Martin
+                        userLastname: Hansen
+                        userEmail: mh@heylink.com
+                        userCurrencyCode: DKK
+                        userStatus: 1
+                        userAccountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                        account:
+                          accountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+                          accountName: Compriso ApS
+                          accountTypeUuid: 8b60e2db-456a-4f4d-9b40-8bf627f5a42b
+                          accountCustomerUuid: 1b1a1caa-dcf1-42da-9c6d-9e8ff302f5cf
+                          accountCommission: 75
+                          accountManaged: 1
+                          accountStatus: 1
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      operationId: get-users
+      description: ''
+      security:
+        - JWT: []
+    parameters: []
+  /users/login:
+    post:
+      summary: USER login
+      operationId: post-users-login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data: '<JWT>'
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userEmail:
+                  type: string
+                userPassword:
+                  type: string
+            examples:
+              example:
+                value:
+                  userEmail: email@domain.com
+                  userPassword: MyP@ssW0rd
+      tags:
+        - users
+  /users/me/password:
+    put:
+      summary: USER update password
+      operationId: put-users-me-password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: 'null'
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    code: 200
+                    data: null
+                    message: success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+      tags:
+        - users
+      security:
+        - JWT: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userNewPassword:
+                  type: string
+                userNewPasswordRepeat:
+                  type: string
+            examples:
+              example:
+                value:
+                  userNewPassword: MyN3wP@ssW0rd
+                  userNewPasswordRepeat: MyN3wP@ssW0rd
+        description: ''
+components:
+  schemas:
+    '400':
+      title: 400
+      type: object
+      properties:
+        code:
+          type: integer
+        data:
+          type:
+            - string
+            - array
+          items: {}
+        message:
+          type: string
+      x-examples:
+        example:
+          code: 400
+          data: '<Error description>'
+          message: '<Error message>'
+      description: Bad request
+      x-tags:
+        - Responses
+    '401':
+      title: 401
+      type: object
+      x-examples:
+        example:
+          code: 401
+          data: {}
+          message: Invalid auth token
+      properties:
+        code:
+          type: integer
+        data:
+          type: object
+        message:
+          type: string
+      description: Unauthorized
+      x-tags:
+        - Responses
+    currencyRate:
+      title: currencyRate
+      type: object
+      x-tags:
+        - schemas
+      properties:
+        currencyRateId:
+          type: string
+        currencyRateFrom:
+          type: string
+        currencyRateValue:
+          type: number
+        currencyRateTo:
+          type: string
+      x-examples:
+        example:
+          currencyRateId: DKKEUR
+          currencyRateFrom: DKK
+          currencyRateValue: 0.133877
+          currencyRateTo: EUR
+    currency:
+      title: currency
+      type: object
+      properties:
+        currencyCode:
+          type: string
+        currencyLeft:
+          type: string
+        currencyRight:
+          type: string
+        currencyDecimalPlace:
+          type: integer
+        currencyDecimalSeparator:
+          type: string
+        currencyThousandSeparator:
+          type: string
+      x-examples:
+        example:
+          currencyCode: DKK
+          currencyLeft: ''
+          currencyRight: ' Kr.'
+          currencyDecimalPlace: 2
+          currencyDecimalSeparator: ','
+          currencyThousandSeparator: .
+      x-tags:
+        - schemas
+    insights:
+      title: insights
+      type: object
+      x-tags:
+        - schemas
+      properties:
+        totals:
+          type: object
+          required:
+            - pageviews
+            - clicks
+            - conversions
+            - commission
+            - sale
+            - cut
+          properties:
+            pageviews:
+              type: integer
+            clicks:
+              type: integer
+            conversions:
+              type: integer
+            commission:
+              type: object
+              properties:
+                DKK:
+                  type: number
+            sale:
+              type: object
+              properties:
+                DKK:
+                  type: number
+            cut:
+              type: object
+              properties:
+                DKK:
+                  type: number
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              grp:
+                type: string
+              filter:
+                type: string
+              filterYear:
+                type: string
+              pageviews:
+                type: integer
+              sale:
+                type: object
+                properties:
+                  DKK:
+                    type: number
+              clicks:
+                type: integer
+              conversions:
+                type: integer
+              commission:
+                type: object
+                properties:
+                  DKK:
+                    type: number
+              cut:
+                type: object
+                properties:
+                  DKK:
+                    type: number
+            required:
+              - grp
+              - filter
+              - filterYear
+              - pageviews
+              - sale
+              - clicks
+              - conversions
+              - commission
+              - cut
+      required:
+        - totals
+        - groups
+      x-examples:
+        example:
+          totals:
+            pageviews: 9422
+            clicks: 0
+            conversions: 18
+            commission:
+              DKK: 3258
+              NOK: 310
+              SEK: 535
+              GBP: 225
+              USD: 70
+            sale:
+              DKK: 1100
+              NOK: 0
+              SEK: 0
+              GBP: 290
+              USD: 0
+          groups:
+            - grp: Desktop
+              filter: Desktop
+              filterYear: ''
+              pageviews: 3866
+              sale:
+                DKK: 1100
+                NOK: 0
+                SEK: 0
+                GBP: 290
+                USD: 0
+              clicks: 0
+              conversions: 18
+              commission:
+                DKK: 3258
+                NOK: 310
+                SEK: 535
+                GBP: 225
+                USD: 70
+            - grp: Tablet
+              filter: Tablet
+              filterYear: ''
+              pageviews: 1220
+              sale: {}
+              clicks: 0
+              conversions: 0
+              commission: {}
+            - grp: Mobile
+              filter: Mobile
+              filterYear: ''
+              pageviews: 4336
+              sale: {}
+              clicks: 0
+              conversions: 0
+              commission: {}
+    click:
+      title: click
+      type: object
+      x-examples:
+        example:
+          clickDatetime: '2019-05-05 23:32:10'
+          clickUuid: 3e1695fb-c80e-4992-8c25-772b84a29cc4
+          clickMediaUuid: ''
+          clickNetworkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+          clickFacebookAdId: ''
+          clickMerchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+          clickAccountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+          clickProgramUuid: ''
+          clickCommissionRuleUuid: ''
+          clickTrackerUuid: ''
+          clickUrlPath: xn--bredbnd-ixa.dk/guides/nem-guide-sadan-far-du-amerikansk-netflix
+          clickSubId: ''
+          clickGclid: ''
+          clickMsclkid: ''
+          clickNetworkUrl: 'https://www.cyberghostvpn.com/offer/comp_gen_weus84rjq.html?aff_sub='
+          clickReferer: google.com
+          clickTarget: cyberghostvpn.com
+          clickDevice: Desktop
+          conversions:
+            - conversionUuid: 2f7c21a6-d2ad-4c7a-ba40-71e5e020578d
+              conversionClickUuid: 3a4d342e-8c08-420e-8d68-b188ffc6e87a
+              conversionCommission: 84
+              conversionSale: 0
+              conversionSaleOrderId: ''
+              conversionDatetime: '2019-05-01 09:06:02'
+              conversionStatusKey: ''
+              conversionCurrencyCode: DKK
+          account:
+            accountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+            accountName: Compriso ApS
+          merchant:
+            merchantUuid: affc6dc5-2862-45cd-bd3e-6ee7f58cbd06
+            merchantUrl: cyberghostvpn.com
+            merchantFavicon: 'https://www.cyberghostvpn.com/favicon-192x192.png?v=1'
+          network:
+            networkUuid: 68d1bc3f-71dc-4783-8364-e5fd36061e04
+            networkName: CyberGhost (kape.com)
+          media:
+            mediaUuid: ''
+            mediaUrl: smslaane.dk
+            mediaFavicon: ''
+          program: null
+          tracker: null
+      properties:
+        clickDatetime:
+          type: string
+        clickUuid:
+          type: string
+        clickMediaUuid:
+          type: string
+        clickNetworkUuid:
+          type: string
+        clickFacebookAdId:
+          type: string
+        clickMerchantUuid:
+          type: string
+        clickAccountUuid:
+          type: string
+        clickProgramUuid:
+          type: string
+        clickCommissionRuleUuid:
+          type: string
+        clickTrackerUuid:
+          type: string
+        clickUrlPath:
+          type: string
+        clickSubId:
+          type: string
+        clickGclid:
+          type: string
+        clickMsclkid:
+          type: string
+        clickNetworkUrl:
+          type: string
+        clickReferer:
+          type: string
+        clickTarget:
+          type: string
+        clickDevice:
+          type: string
+        conversions:
+          type: object
+          properties:
+            conversionUuid:
+              type: string
+            conversionMediaUuid:
+              type: string
+            conversionClickUuid:
+              type: string
+            conversionNetworkUuid:
+              type: string
+            conversionAccountUuid:
+              type: string
+            conversionProgramUuid:
+              type: string
+            conversionTrackerUuid:
+              type: string
+            conversionMerchantUuid:
+              type: string
+            conversionAmount:
+              type: number
+            conversionCommission:
+              type: number
+            conversionCut:
+              type: number
+            conversionCurrencyId:
+              type: integer
+            conversionSale:
+              type: number
+            conversionSaleOrderId:
+              type: string
+            conversionDatetime:
+              type: string
+            conversionCallbackUuid:
+              type: string
+            conversionStatusKey:
+              type: string
+            conversionUpdatedDatetime:
+              type: string
+            conversionPaymentReceived:
+              type: boolean
+            conversionPaymentReceivedDatetime:
+              type: string
+            currency:
+              type: object
+              properties:
+                currencyId:
+                  type: integer
+                currencyCode:
+                  type: string
+        merchant:
+          type: object
+          properties:
+            merchantUuid:
+              type: string
+            merchantUrl:
+              type: string
+            merchantFavicon:
+              type: string
+        account:
+          type: object
+          properties:
+            accountUuid:
+              type: string
+            accountName:
+              type: string
+        network:
+          type: object
+          properties:
+            networkUuid:
+              type: string
+            networkName:
+              type: string
+        media:
+          type: object
+          properties:
+            mediaUuid:
+              type: string
+            mediaUrl:
+              type: string
+            mediaFavicon:
+              type: string
+        program:
+          type: object
+          properties:
+            programTitle:
+              type: string
+            programUuid:
+              type: string
+        tracker:
+          type: object
+          properties:
+            trackerName:
+              type: string
+            trackerUuid:
+              type: string
+      x-tags:
+        - schemas
+    conversion-status:
+      title: conversion-status
+      type: object
+      x-examples:
+        example:
+          conversionStatusKey: approved
+          conversionStatusName: Approved
+      properties:
+        conversionStatusKey:
+          type: string
+        conversionStatusName:
+          type: string
+      x-tags:
+        - schemas
+    conversion:
+      title: conversion
+      type: object
+      x-examples:
+        example:
+          conversionUuid: 2f7c21a6-d2ad-4c7a-ba40-71e5e020578d
+          conversionClickUuid: 3a4d342e-8c08-420e-8d68-b188ffc6e87a
+          conversionCommission: 84
+          conversionSale: 0
+          conversionSaleOrderId: ''
+          conversionDatetime: '2019-05-01 09:06:02'
+          conversionStatusKey: ''
+          comments: []
+          account:
+            accountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+            accountName: Compriso ApS
+          merchant:
+            merchantUuid: b6015b7c-4369-4e7c-b38d-8982ec269e34
+            merchantUrl: fullrate.dk
+            merchantFavicon: 'https://www.fullrate.dk/media/fav-icon/apple-icon-57x57.png'
+          network:
+            networkUuid: 128db014-f9da-4d94-93db-fbb596bbf9a2
+            networkName: Adservice DK
+          click:
+            clickDatetime: '2019-04-17 12:25:57'
+            clickUuid: 3a4d342e-8c08-420e-8d68-b188ffc6e87a
+            clickFacebookAdId: ''
+            clickGclid: ''
+            clickMsclkid: ''
+            clickUrlPath: xn--bredbnd-ixa.dk/internet
+            clickDevice: Desktop
+          media:
+            mediaUuid: 0b33c8a3-b5de-4ec1-ae85-7e1655ec5cca
+            mediaUrl: xn--bredbnd-ixa.dk
+            mediaFavicon: 'https://xn--bredbnd-ixa.dk/wp-content/themes/bredbaand/images/favicon.ico?ver=1553854353'
+          program: null
+          tracker: null
+          status: null
+      x-tags:
+        - schemas
+      properties:
+        conversionUuid:
+          type: string
+        conversionMediaUuid:
+          type: string
+        conversionClickUuid:
+          type: string
+        conversionNetworkUuid:
+          type: string
+        conversionAccountUuid:
+          type: string
+        conversionProgramUuid:
+          type: string
+        conversionTrackerUuid:
+          type: string
+        conversionMerchantUuid:
+          type: string
+        conversionAmount:
+          type: number
+        conversionCommission:
+          type: number
+        conversionCut:
+          type: number
+        conversionCurrencyCode:
+          type: string
+        conversionSale:
+          type: number
+        conversionSaleOrderId:
+          type: string
+        conversionDatetime:
+          type: string
+        conversionCallbackUuid:
+          type: string
+        conversionStatus:
+          type: string
+        conversonUpdatedDatetime:
+          type: string
+        conversionPaymentReceived:
+          type: number
+        conversionPaymentReceivedDatetime:
+          type: string
+        comments:
+          type: array
+          items: {}
+        account:
+          type: object
+          properties:
+            accountUuid:
+              type: string
+            accountName:
+              type: string
+        merchant:
+          type: object
+          properties:
+            merchantUuid:
+              type: string
+            merchantUrl:
+              type: string
+            merchantFavicon:
+              type: string
+        network:
+          type: object
+          properties:
+            networkUuid:
+              type: string
+            networkName:
+              type: string
+        media:
+          type: object
+          properties:
+            mediaUuid:
+              type: string
+            mediaUrl:
+              type: string
+            mediaFavicon:
+              type: string
+        click:
+          type:
+            - object
+            - 'null'
+          properties:
+            clickDatetime:
+              type: string
+            clickUuid:
+              type: string
+            clickFacebookAdId:
+              type: string
+            clickGclid:
+              type: string
+            clickMsclkid:
+              type: string
+            clickUrlPath:
+              type: string
+            clickDevice:
+              type: string
+        program:
+          type:
+            - object
+            - 'null'
+          properties:
+            programTitle:
+              type: string
+            programUuid:
+              type: string
+        tracker:
+          type:
+            - object
+            - 'null'
+          properties:
+            trackerName:
+              type: string
+            trackerUuid:
+              type: string
+        status:
+          type: object
+          properties:
+            conversionStatusKey:
+              type: string
+            conversionStatusName:
+              type: string
+    country:
+      title: countries
+      type: object
+      x-tags:
+        - schemas
+      x-examples:
+        example:
+          countryName: Denmark
+          countryStatus: 1
+          countryCode: DK
+      properties:
+        countryName:
+          type: string
+        countryCode:
+          type: string
+        countryStatus:
+          type: boolean
+    media:
+      title: media
+      type: object
+      x-examples:
+        example:
+          mediaId: 1
+          mediaUuid: 3d4ba4e2-f735-4631-aebd-667dd1d8514d
+          mediaUrl: localhost
+          mediaName: localhost
+          mediaFavicon: ''
+          mediaTypeUuid: 3ca28660-3d9a-4894-9f6f-76a414374888
+          mediaAccountUuid: a1274144-3a13-48b1-a314-61b0c001d8a7
+          mediaCountryCode: DK
+          mediaExclude: 0
+          mediaInclude: 0
+          mediaDomUpdate: 0
+          mediaDiscoverLink: 1
+          mediaDiscoverMode: 0
+      x-tags:
+        - schemas
+      properties:
+        mediaUuid:
+          type: string
+        mediaUrl:
+          type: string
+        mediaFavicon:
+          type: string
+        mediaTypeUuid:
+          type: string
+        mediaAccountUuid:
+          type: string
+        mediaCountryC:
+          type: integer
+        mediaExclude:
+          type: boolean
+        mediaInclude:
+          type: boolean
+        mediaDomUpdate:
+          type: boolean
+        mediaDiscoverLink:
+          type: boolean
+        mediaDiscoverMode:
+          type: boolean
+        mediaName:
+          type: string
+        mediaDescription:
+          type: string
+        mediaCountryCode:
+          type: string
+    merchant:
+      title: merchant
+      type: object
+      properties:
+        merchantUuid:
+          type: string
+        merchantName:
+          type: string
+        merchantUrl:
+          type: string
+        merchantFavicon:
+          type: string
+        merchantForceHttps:
+          type: boolean
+        merchantForceHttp:
+          type: boolean
+        merchantForWww:
+          type: boolean
+        merchantForceRemoveWww:
+          type: boolean
+      x-tags:
+        - schemas
+      x-examples: {}
+      description: ''
+    user:
+      title: user
+      type: object
+      x-examples:
+        example:
+          userUuid: 75fd4326-300b-4a8e-bff6-807c973a1c42
+          userFirstname: Martin
+          userLastname: Hansen
+          userCurrencyCode: DKK
+          userEmail: mh@heylink.com
+          userStatus: 1
+          userAccountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+          account:
+            accountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+            accountName: Compriso ApS
+            accountTypeUuid: 8b60e2db-456a-4f4d-9b40-8bf627f5a42b
+            accountCustomerUuid: 1b1a1caa-dcf1-42da-9c6d-9e8ff302f5cf
+            accountCommission: 75
+            accountManaged: 1
+            accountStatus: 1
+      x-tags:
+        - schemas
+      properties:
+        userUuid:
+          type: string
+        userFirstname:
+          type: string
+        userLastname:
+          type: string
+        userEmail:
+          type: string
+        userStatus:
+          type: boolean
+        userAcountUuid:
+          type: string
+        userCurrencyCode:
+          type: string
+    account:
+      title: account
+      type: object
+      properties:
+        accountUuid:
+          type: string
+        accountName:
+          type: string
+        accountTypeUuid:
+          type: string
+        accountCustomerUuid:
+          type: string
+        accountManaged:
+          type: boolean
+        accountStatus:
+          type: boolean
+      x-examples:
+        example:
+          accountUuid: fc9f4ed1-fa56-46b2-82ae-da01168a0bbf
+          accountName: Heylink ApS
+          accountTypeUuid: 8b60e2db-456a-4f4d-9b40-8bf627f5a42b
+          accountCustomerUuid: 1b1a1caa-dcf1-42da-9c6d-9e8ff302f5cf
+          accountManaged: 1
+          accountStatus: 1
+    customer:
+      title: customer
+      type: object
+      properties:
+        customerUuid:
+          type: string
+        customerFirstname:
+          type: string
+        customerLastname:
+          type: string
+        customerCompanyName:
+          type: string
+        customerUrl:
+          type: string
+        customerEmail:
+          type: string
+        customerPhone:
+          type: string
+        customerVatNumber:
+          type: string
+        customerAddress:
+          type: string
+        customerZipcode:
+          type: string
+        customerCity:
+          type: string
+        customerCountryCode:
+          type: string
+        customerBankRegistration:
+          type: string
+        customerBankAccount:
+          type: string
+        customerStatus:
+          type: boolean
+        country:
+          $ref: '#/components/schemas/country'
+      x-examples:
+        example:
+          customerUuid: 1b1a1caa-dcf1-42da-9c6d-9e8ff302f5cf
+          customerFirstname: Martin
+          customerLastname: Hansen
+          customerCompanyName: Compriso Aps
+          customerUrl: compriso.com
+          customerEmail: info@compriso.com
+          customerPhone: '28569331'
+          customerVatNumber: '-'
+          customerAddress: Bredgade 23B 4.
+          customerZipcode: '1260'
+          customerCity: København K
+          customerCountryCode: ''
+          customerBankRegistration: '2222'
+          customerBankAccount: '11'
+          customerStatus: 1
+          country:
+            countryId: 150
+            countryCode: ''
+            countryName: Global
+            countryStatus: 1
+    me:
+      title: me
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/user'
+        account:
+          $ref: '#/components/schemas/account'
+        customer:
+          $ref: '#/components/schemas/customer'
+      x-examples:
+        example: {}
+      description: ''
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
