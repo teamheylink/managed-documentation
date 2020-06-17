@@ -1,13 +1,13 @@
 openapi: 3.0.0
 info:
-  title: boss
+  title: managed
   version: v1
   contact:
     name: Martin Hansen
     url: heylink.com
     email: mh@heylink.com
 servers:
-  - url: 'https://heylinkapi.com/boss/v1'
+  - url: 'https://heylinkapi.com/managed/v1'
     description: production
 paths:
   /currencies/rates:
@@ -1599,7 +1599,7 @@ paths:
             type: string
           in: query
           name: search
-          description: 'searches url & name'
+          description: searches url & name
   '/users/{userUuid}':
     parameters:
       - schema:
@@ -1811,7 +1811,7 @@ paths:
                 example:
                   value:
                     code: 200
-                    data: '<JWT>'
+                    data: <JWT>
                     message: success
         '400':
           description: Bad Request
@@ -1916,8 +1916,8 @@ components:
       x-examples:
         example:
           code: 400
-          data: '<Error description>'
-          message: '<Error message>'
+          data: <Error description>
+          message: <Error message>
       description: Bad request
       x-tags:
         - Responses
